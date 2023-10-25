@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+
+{% block title %}Add new group{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <h1 class="mb-4">Add new group</h1>
+                <form method="POST" action="{% url 'edit_group' group.id %}">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <input type="text" class="form-control" placeholder="Name" name="name" value="{{ group.name }}">
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" class="form-control" placeholder="Description" name="description" value="{{ group.description }}">
+                    </div>
+                    <button type="submit" class="btn btn-success">Edit</button>
+                    <a href="{% url 'groups' %}" class="btn btn-secondary">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

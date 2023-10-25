@@ -1,0 +1,57 @@
+{% extends 'layout.html' %}
+
+{% block title %}Users{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="text-dark nav-link {% if request.path == '/' %} active {% endif %}" href="{% url 'users' %}">Users</a>
+            </li>
+            <li class="nav-item">
+                <a class="text-dark nav-link {% if request.path == '/groups' %} active {% endif %}" href="{% url 'groups' %}">Groups</a>
+            </li>
+
+        </ul>
+    </div>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-sm-6">
+
+            </div>
+            <div class="col-sm-6">
+                <div class="d-flex justify-content-end p-2">
+                    <a href="{% url 'add_group' %}">
+                        <button type="button" class="btn btn-outline-primary">Add group</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-4">
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for group in groups %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ group.name }}</td>
+                    <td>{{ group.description }}</td>
+                    <td>
+                        <a href="{% url 'edit_group' group.id %}"><button type="button" class="btn btn-outline-dark">Edit</button></a>
+                        <a href="{% url 'delete_group' group.id %}" class="btn btn-outline-danger">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
