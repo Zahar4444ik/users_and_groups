@@ -18,6 +18,9 @@ def groups(request):
 
 def add_user(request):
     all_groups = CustomGroup.objects.all()
+
+    any_group_exist = True if all_groups else False
+
     if request.method == 'POST':
         form = UserForm(request.POST)
         if form.is_valid():
@@ -28,7 +31,7 @@ def add_user(request):
             for field, errors in form.errors.items():
                 for error in errors:
                     messages.error(request, f"Error in field '{field}': {error}")
-    return render(request, 'add_user.html', {'groups': all_groups})
+    return render(request, 'add_user.html', {'groups': all_groups, 'any_group_exist': any_group_exist})
 
 
 def edit_user(request, user_id):
